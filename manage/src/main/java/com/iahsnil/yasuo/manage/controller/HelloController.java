@@ -1,12 +1,16 @@
 package com.iahsnil.yasuo.manage.controller;
 
+import com.iahsnil.yasuo.manage.remote.NineOneRemote;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +23,10 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @Slf4j
 public class HelloController {
+
+    @Autowired(required = false)
+    @Qualifier("nineOneRemote")
+    private NineOneRemote nineOneRemote;
 
     @RequestMapping("/admin")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -49,4 +57,9 @@ public class HelloController {
         return "login";
     }
 
+    @RequestMapping("/remote/getList")
+    @ResponseBody
+    public Object getList() {
+        return nineOneRemote.getList();
+    }
 }

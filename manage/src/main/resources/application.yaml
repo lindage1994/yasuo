@@ -19,3 +19,7 @@ spring:
       name: admin
       password: yasuo@2019
       roles: ADMIN
+
+eureka:
+  client:
+    service-url: http://localhost:8000/eureka/

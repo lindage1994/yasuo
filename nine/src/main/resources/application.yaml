@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: nine-producer
+server:
+  port: 9191
+eureka:
+  client:
+    service-url: http://localhost:8000/eureka/
