@@ -1,25 +1,28 @@
 package com.iahsnil.nine.service.impl;
 
 import com.iahsnil.nine.service.SpiderService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 @Service("spiderService")
+@Slf4j
 public class SpiderServiceImpl implements SpiderService {
     @Override
     public void startSpider() {
         try{
-            Process process = Runtime.getRuntime().exec("Python G:\\spriders\\test.py");
+            log.info("script process...");
+            Process process = Runtime.getRuntime().exec("Python F:\\spriders\\91_spider.py");
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = in.readLine()) != null) {
-                System.out.println(line);
+                log.info(line);
             }
             in.close();
             process.waitFor();
-            System.out.println("end");
+            System.out.println("script done.");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -14,12 +14,12 @@ spring:
     cache: false
   session:
     store-type: redis
-  security:
-    user:
-      name: admin
-      password: yasuo@2019
-      roles: ADMIN
+  application:
+    name: yasuo-manage
 
 eureka:
   client:
-    service-url: http://localhost:8000/eureka/
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+server:
+  port: 9292
