@@ -19,7 +19,7 @@ public class BaseController {
 
     @RequestMapping("/getList")
     public Object getList() {
-        spiderService.getList(2);
+        spiderService.getList(1);
         return "list";
     }
 

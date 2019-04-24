@@ -24,9 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class HelloController {
 
-    @Autowired(required = false)
-    @Qualifier("nineOneRemote")
-    private NineOneRemote nineOneRemote;
+    @Autowired
+    NineOneRemote nineOneRemote;
 
     @RequestMapping("/admin")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
