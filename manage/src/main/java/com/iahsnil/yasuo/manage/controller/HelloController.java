@@ -27,6 +27,11 @@ public class HelloController {
     @Autowired
     NineOneRemote nineOneRemote;
 
+    @RequestMapping(value = {"/","/index"})
+    public String index() {
+        return "home";
+    }
+
     @RequestMapping("/admin")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String admin(Model model) {
