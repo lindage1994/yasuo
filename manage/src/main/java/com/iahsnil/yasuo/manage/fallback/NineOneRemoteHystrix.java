@@ -11,7 +11,7 @@ public class NineOneRemoteHystrix implements NineOneRemote {
     }
 
     @Override
-    public Object refreshList() {
+    public Object refreshList(int page) {
         return "refresh list failed";
     }
 

@@ -8,6 +8,8 @@ import com.iahsnil.nine.repository.VedioRepository;
 import com.iahsnil.nine.service.SpiderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -15,8 +17,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.concurrent.Future;
 
 @Service("spiderService")
 @Slf4j
@@ -38,19 +39,33 @@ public class SpiderServiceImpl implements SpiderService {
             }
             in.close();
             process.waitFor();
-            System.out.println("script done.");
+            log.info("script done.");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void getList(int pageNo) {
+    public Object getList() {
+        return vedioRepository.findAll();
+    }
+
+    @Override
+    public void download(int id) {
+
+    }
+
+    @Override
+    @Async
+    public Future<String> refreshList(int page) {
         StringBuilder sb = new StringBuilder();
+
+        log.info("getList script process....");
+        URL url = this.getClass().getClassLoader().getResource("pyscript/91_spider_list.py");
+        if (null == url)
+            throw new RuntimeException("script dont exist");
         try{
-            log.info("getList script process....");
-            URL url = this.getClass().getClassLoader().getResource("pyscript/91_spider_list.py");
-            String[] args1 = new String[] {"python", url.getPath().replaceFirst("/",""), String.valueOf(pageNo)};
+            String[] args1 = new String[] {"python", url.getPath().replaceFirst("/",""), String.valueOf(page)};
             Process process = Runtime.getRuntime().exec(args1);
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream(),Charset.forName("GBK")));
             String line;
@@ -66,22 +81,16 @@ public class SpiderServiceImpl implements SpiderService {
             log.error("线程interrupt......");
             e.printStackTrace();
         }
-        Set<VedioInfo> vedioInfoSet = new HashSet<>();
         JSONArray jsonArray = JSON.parseArray(sb.toString());
         for (Object o : jsonArray) {
-            JSONObject object = JSON.parseObject(o.toString());
+            JSONObject object = (JSONObject) o;
             VedioInfo vedio = new VedioInfo();
             vedio.setCode(object.getString("key"));
             vedio.setLink(object.getString("link"));
             vedio.setName(object.getString("name"));
             vedio.setStatus((byte) 0);
-            vedioInfoSet.add(vedio);
+            vedioRepository.saveAndFlush(vedio);
         }
-        vedioRepository.saveAll(vedioInfoSet);
-    }
-
-    @Override
-    public void download(int id) {
-
+        return new AsyncResult<>("suceess");
     }
 }

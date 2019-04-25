@@ -10,6 +10,9 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: true
+#    properties:
+#      hibernate:
+#        enable_lazy_load_no_trans: true
   thymeleaf:
     cache: false
   session:
@@ -23,3 +26,8 @@ eureka:
       defaultZone: http://localhost:8001/eureka/
 server:
   port: 9292
+
+feign:
+  hystrix:
+    # 在feign中开启hystrix功能
+    enabled: true

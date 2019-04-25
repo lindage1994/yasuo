@@ -12,7 +12,7 @@ public interface NineOneRemote {
     Object getList();
 
     @RequestMapping(value = "/refreshList")
-    Object refreshList();
+    Object refreshList(@RequestParam int page);
 
     @RequestMapping(value = "excuteTask")
     Object excuteTask(@RequestParam int taskId);

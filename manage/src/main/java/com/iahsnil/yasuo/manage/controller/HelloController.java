@@ -61,4 +61,10 @@ public class HelloController {
     public Object getList() {
         return nineOneRemote.getList();
     }
+
+    @RequestMapping("/remote/refreshList")
+    @ResponseBody
+    public Object refreshList(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
+        return nineOneRemote.refreshList(page);
+    }
 }
