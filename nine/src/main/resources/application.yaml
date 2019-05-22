@@ -26,6 +26,13 @@ spring:
     properties.mail.smtp.ssl.enable: true
     from: iahsnil1994@gmail.com
     default-encoding: utf-8
+  redis:
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: PT2S
+        max-idle: 8
+        min-idle: 2
 server:
   port: 9191
 eureka:

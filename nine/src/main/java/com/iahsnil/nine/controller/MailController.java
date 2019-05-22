@@ -1,5 +1,6 @@
 package com.iahsnil.nine.controller;
 
+import com.iahsnil.nine.annotation.CacheLock;
 import com.iahsnil.nine.common.model.Email;
 import com.iahsnil.nine.service.MailSender;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,12 @@ public class MailController {
         email.setContent("hello sb");
         email.setSubject("测试邮件");
         mailSender.send(email);
+        return "success";
+    }
+
+    @CacheLock(prefix = "test")
+    @RequestMapping("/testLock")
+    public String testLock() {
         return "success";
     }
 }
