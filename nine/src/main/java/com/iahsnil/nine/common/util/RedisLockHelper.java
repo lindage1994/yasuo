@@ -1,5 +1,6 @@
 package com.iahsnil.nine.common.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -19,6 +20,7 @@ import java.util.regex.Pattern;
  * @Date: 2019/5/22 19:49
  * @Description: redis锁工具类
  */
+@Slf4j
 @Configuration
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 public class RedisLockHelper {
@@ -28,6 +30,8 @@ public class RedisLockHelper {
      * 如果要求比较高可以通过注入的方式分配
      */
     private static final ScheduledExecutorService EXECUTOR_SERVICE = Executors.newScheduledThreadPool(10);
+
+    private static ThreadLocal<Thread> expireThread = new ThreadLocal<>();
 
     private final StringRedisTemplate stringRedisTemplate;
 
@@ -49,6 +53,35 @@ public class RedisLockHelper {
     }
 
     /**
+     * 获取锁（通过守护线程延长锁过期时间）
+     *
+     */
+    public boolean delayLock(final String lockKey, final String uuid, long timeout, final TimeUnit unit) {
+        Thread keepThread = new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                stringRedisTemplate.expire(lockKey, timeout,unit);
+                long sleepTime = timeout / 2 > 0 ? 1000 * (timeout / 2) : 600;
+                try {
+                    Thread.sleep(sleepTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    log.error("守护线程被打断....");
+                    break;
+                }
+            }
+        });
+
+        boolean result = lock(lockKey, uuid, timeout, unit);
+
+        if (result) {
+            keepThread.setDaemon(true);   //守护线程
+            keepThread.start();
+        }
+
+        return result;
+    }
+
+    /**
      * 获取锁
      *
      * @param lockKey lockKey
@@ -62,13 +95,14 @@ public class RedisLockHelper {
         boolean success = stringRedisTemplate.opsForValue().setIfAbsent(lockKey, (System.currentTimeMillis() + milliseconds) + DELIMITER + uuid);
         if (success) {
             stringRedisTemplate.expire(lockKey, timeout, TimeUnit.SECONDS);
-        } else {
-            String oldVal = stringRedisTemplate.opsForValue().getAndSet(lockKey, (System.currentTimeMillis() + milliseconds) + DELIMITER + uuid);
-            final String[] oldValues = oldVal.split(Pattern.quote(DELIMITER));
-            if (Long.parseLong(oldValues[0]) + 1 <= System.currentTimeMillis()) {
-                return true;
-            }
         }
+//        else {
+//            String oldVal = stringRedisTemplate.opsForValue().getAndSet(lockKey, (System.currentTimeMillis() + milliseconds) + DELIMITER + uuid);
+//            final String[] oldValues = oldVal.split(Pattern.quote(DELIMITER));
+//            if (Long.parseLong(oldValues[0]) + 1 <= System.currentTimeMillis()) {
+//                return true;
+//            }
+//        }
         return success;
     }
 
@@ -112,5 +146,16 @@ public class RedisLockHelper {
         if (uuid.equals(values[1])) {
             stringRedisTemplate.delete(lockKey);
         }
+    }
+
+    /**
+     * 释放锁，守护线程退出
+     */
+    public void delayUnlock(final  String localKey, final String uuid) {
+        if (expireThread.get() != null) {
+            expireThread.get().interrupt();
+            expireThread.remove();
+        }
+        doUnlock(localKey, uuid);
     }
 }

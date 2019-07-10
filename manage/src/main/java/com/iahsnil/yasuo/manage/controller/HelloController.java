@@ -32,6 +32,11 @@ public class HelloController {
         return "home";
     }
 
+    @RequestMapping(value = "/jobManager")
+    public String jobManager() {
+        return "jobManager";
+    }
+
     @RequestMapping("/admin")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String admin(Model model) {

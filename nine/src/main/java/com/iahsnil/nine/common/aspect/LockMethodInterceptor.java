@@ -44,7 +44,7 @@ public class LockMethodInterceptor {
         String value = UUID.randomUUID().toString();
         try {
             // 假设上锁成功，但是设置过期时间失效，以后拿到的都是 false
-            final boolean success = redisLockHelper.lock(lockKey, value, lock.expire(), lock.timeUnit());
+            final boolean success = redisLockHelper.delayLock(lockKey, value, lock.expire(), lock.timeUnit());
             if (!success) {
                 throw new RuntimeException("重复提交");
             }
