@@ -21,3 +21,17 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+.idea/
+eureka/.mvn/
+eureka/mvnw
+eureka/mvnw.cmd
+manage/.mvn/
+manage/mvnw
+manage/mvnw.cmd
+manage/src/main/resources/static/images/
+nine/src/main/resources/templates/
+zuul/.gitignore
+zuul/.mvn/
+zuul/mvnw
+zuul/mvnw.cmd
+/yasuo.iml
