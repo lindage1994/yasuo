@@ -1,0 +1,15 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: config-server
+  profiles:
+    active:
+      - native
+  cloud:
+    config:
+      name: config-server
+      enabled: false
+      server:
+        health:
+          enabled: false

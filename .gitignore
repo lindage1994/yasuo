@@ -35,3 +35,7 @@ zuul/.mvn/
 zuul/mvnw
 zuul/mvnw.cmd
 /yasuo.iml
+/config/config.iml
+config/config.iml
+/gateway/gateway.iml
+/gateway/target/

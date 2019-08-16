@@ -91,6 +91,6 @@ public class SpiderServiceImpl implements SpiderService {
             vedio.setStatus((byte) 0);
             vedioRepository.saveAndFlush(vedio);
         }
-        return new AsyncResult<>("suceess");
+        return new AsyncResult<>("success");
     }
 }
