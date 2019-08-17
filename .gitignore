@@ -28,8 +28,6 @@ eureka/mvnw.cmd
 manage/.mvn/
 manage/mvnw
 manage/mvnw.cmd
-manage/src/main/resources/static/images/
-nine/src/main/resources/templates/
 zuul/.gitignore
 zuul/.mvn/
 zuul/mvnw

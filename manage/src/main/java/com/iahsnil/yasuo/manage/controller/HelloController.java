@@ -1,16 +1,12 @@
 package com.iahsnil.yasuo.manage.controller;
 
-import com.iahsnil.yasuo.manage.remote.NineOneRemote;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,9 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @Slf4j
 public class HelloController {
-
-    @Autowired
-    NineOneRemote nineOneRemote;
 
     @RequestMapping(value = {"/","/index"})
     public String index() {
@@ -64,17 +57,5 @@ public class HelloController {
     public String login(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
         model.addAttribute("name", name);
         return "login";
-    }
-
-    @RequestMapping("/remote/getList")
-    @ResponseBody
-    public Object getList() {
-        return nineOneRemote.getList();
-    }
-
-    @RequestMapping("/remote/refreshList")
-    @ResponseBody
-    public Object refreshList(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
-        return nineOneRemote.refreshList(page);
     }
 }
