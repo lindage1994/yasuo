@@ -3,11 +3,13 @@ package com.iahsnil.yasuo.manage.fallback;
 import com.iahsnil.yasuo.manage.remote.NineOneRemote;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class NineOneRemoteHystrix implements NineOneRemote {
     @Override
-    public Object getList() {
-        return "this message send failed";
+    public List<Object> getList() {
+        return null;
     }
 
     @Override

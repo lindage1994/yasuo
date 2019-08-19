@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 /**
  * @Author: zed
@@ -24,8 +27,11 @@ public class PornController {
     NineOneRemote nineOneRemote;
 
     @RequestMapping({"/","/list"})
-    public String list(Model model) {
-        model.addAttribute("porns", nineOneRemote.getList());
+    public String list(Model model, @RequestParam(value="pageNum",defaultValue = "1") Integer pageNum) {
+        List<Object> list = nineOneRemote.getList();
+        model.addAttribute("porns", list.stream().skip((pageNum - 1) * 20).limit(20).collect(Collectors.toList()));
+        model.addAttribute("pageNum",pageNum);
+        model.addAttribute("totalPages",list.size() / 20 + 1);
         return "porn/list";
     }
 

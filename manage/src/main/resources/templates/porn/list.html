@@ -17,8 +17,7 @@
             <th>name</th>
             <th>code</th>
             <th>link</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>play</th>
         </tr>
         </thead>
         <tbody>
@@ -32,6 +31,20 @@
         </tbody>
     </table>
 </div>
+<ul class="pagination pagination-lg" >
+    <li th:if="${pageNum ==1}" th:class="disabled"><a href="#">上一页</a></li>
+    <li th:if="${pageNum > 1}" ><a th:href="@{/porn/list(pageNum=${pageNum - 1})}">上一页</a></li>
+    <li th:if="${pageNum - 3 >=1}" ><a th:href="@{/porn/list(pageNum=${pageNum - 3})}" th:text="${pageNum -3}" >1</a></li>
+    <li th:if="${pageNum - 2 >=1}" ><a th:href="@{/porn/list(pageNum=${pageNum - 2})}" th:text="${pageNum -2}" >1</a></li>
+    <li th:if="${pageNum - 1 >=1}" ><a th:href="@{/porn/list(pageNum=${pageNum - 1})}" th:text="${pageNum -1}" >1</a></li>
+    <li class="active"><a href="#" th:text="${pageNum}" >1</a></li>
+    <li th:if="${pageNum + 1 <=totalPages}" ><a th:href="@{/porn/list(pageNum=${pageNum + 1})}" th:text="${pageNum +1}" >1</a></li>
+    <li th:if="${pageNum + 2 <=totalPages}" ><a th:href="@{/porn/list(pageNum=${pageNum + 2})}" th:text="${pageNum +2}" >1</a></li>
+    <li th:if="${pageNum + 3 <=totalPages}" ><a th:href="@{/porn/list(pageNum=${pageNum + 3})}" th:text="${pageNum +3}" >1</a></li>
+
+    <li th:if="${pageNum == totalPages}" class="disabled" ><a href="#">下一页</a></li>
+    <li th:if="${pageNum < totalPages}"><a th:href="@{/porn/list(pageNum=${pageNum + 1})}">下一页</a></li>
+</ul><br>
 <!--<div class="form-group">-->
     <!--<div class="col-sm-2 control-label">-->
         <!--<a href="porn/toAdd" th:href="@{/user/toAdd}" class="btn btn-info">add</a>-->

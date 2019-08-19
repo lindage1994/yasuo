@@ -8,6 +8,7 @@ import com.iahsnil.nine.repository.VedioRepository;
 import com.iahsnil.nine.service.SpiderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @Service("spiderService")
@@ -46,7 +49,7 @@ public class SpiderServiceImpl implements SpiderService {
     }
 
     @Override
-    public Object getList() {
+    public List<VedioInfo> getList() {
         return vedioRepository.findAll();
     }
 
@@ -89,7 +92,13 @@ public class SpiderServiceImpl implements SpiderService {
             vedio.setLink(object.getString("link"));
             vedio.setName(object.getString("name"));
             vedio.setStatus((byte) 0);
-            vedioRepository.saveAndFlush(vedio);
+            try {
+                vedioRepository.saveAndFlush(vedio);
+            } catch (DataIntegrityViolationException e) {
+                e.printStackTrace();
+                log.error("重复的code........");
+                log.error(vedio.getName());
+            }
         }
         return new AsyncResult<>("success");
     }

@@ -1,11 +1,13 @@
 package com.iahsnil.nine.controller;
 
+import com.iahsnil.nine.entity.VedioInfo;
 import com.iahsnil.nine.service.SpiderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -32,7 +34,7 @@ public class BaseController {
     }
 
     @RequestMapping("/getList")
-    public Object getList() {
+    public List<VedioInfo> getList() {
         return spiderService.getList();
     }
 
