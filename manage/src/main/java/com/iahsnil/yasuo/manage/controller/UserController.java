@@ -1,6 +1,6 @@
 package com.iahsnil.yasuo.manage.controller;
 
-import com.iahsnil.yasuo.manage.Service.UserService;
+import com.iahsnil.yasuo.manage.service.UserService;
 import com.iahsnil.yasuo.manage.entity.UserInfo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

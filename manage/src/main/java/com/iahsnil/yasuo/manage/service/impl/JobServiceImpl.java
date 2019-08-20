@@ -1,6 +1,6 @@
-package com.iahsnil.yasuo.manage.Service.impl;
+package com.iahsnil.yasuo.manage.service.impl;
 
-import com.iahsnil.yasuo.manage.Service.JobService;
+import com.iahsnil.yasuo.manage.service.JobService;
 import com.iahsnil.yasuo.manage.entity.JobInfo;
 import com.iahsnil.yasuo.manage.repository.JobRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 /**

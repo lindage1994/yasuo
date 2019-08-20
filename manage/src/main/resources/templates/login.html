@@ -2,6 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>User Sign in</title>
+    <!--<link rel="stylesheet" th:href="@{/css/bootstrap.css}">-->
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <!--<script type="text/javascript" th:src="@{/js/jquery-1.11.1.min.js}"></script>-->
+    <!--<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>-->
+    <script>
+        window.onload = function () {
+            const signUpButton = document.getElementById('signUp');
+            const signInButton = document.getElementById('signIn');
+            const container = document.getElementById('container');
+
+            signUpButton.addEventListener('click', () => {
+                container.classList.add("right-panel-active");
+            });
+
+            signInButton.addEventListener('click', () => {
+                container.classList.remove("right-panel-active");
+            });
+        }
+    </script>
 </head>
 <body>
 <div th:if="${param.error}">
@@ -10,10 +29,61 @@
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+<h2>登录/注册</h2>
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form th:action="@{/register}" method="post">
+            <h1>注册</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>or use your email for registration</span>
+            <input type="text" name="username" placeholder="Username" />
+            <input type="email" name="email"  placeholder="Email" />
+            <input type="password" name="password" placeholder="Password" />
+            <button>Sign Up</button>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form th:action="@{/login}" method="post">
+            <h1>登录</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>or use your account</span>
+            <input type="text" name="username" placeholder="Username" />
+            <input type="password" name="password" placeholder="Password" />
+            <a href="#">Forgot your password?</a>
+            <button>Sign In</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button class="ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>
+        Created with <i class="fa fa-heart"></i> by
+        <a target="_blank" href="https://florin-pop.com">Florin Pop</a>
+        - Read how I created this and how you can join the challenge
+        <a target="_blank" href="https://www.florin-pop.com/blog/2019/03/double-slider-sign-in-up-form/">here</a>.
+    </p>
+</footer>
 </body>
 </html>

@@ -1,7 +1,7 @@
-package com.iahsnil.yasuo.manage.Service.impl;
+package com.iahsnil.yasuo.manage.service.impl;
 
 
-import com.iahsnil.yasuo.manage.Service.UserService;
+import com.iahsnil.yasuo.manage.service.UserService;
 import com.iahsnil.yasuo.manage.entity.UserInfo;
 import com.iahsnil.yasuo.manage.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

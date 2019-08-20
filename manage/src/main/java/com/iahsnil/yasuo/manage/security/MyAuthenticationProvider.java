@@ -1,6 +1,6 @@
 package com.iahsnil.yasuo.manage.security;
 
-import com.iahsnil.yasuo.manage.Service.UserService;
+import com.iahsnil.yasuo.manage.service.UserService;
 import com.iahsnil.yasuo.manage.entity.SysRole;
 import com.iahsnil.yasuo.manage.entity.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;

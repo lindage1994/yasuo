@@ -1,4 +1,4 @@
-package com.iahsnil.yasuo.manage.Service;
+package com.iahsnil.yasuo.manage.service;
 
 import com.iahsnil.yasuo.manage.entity.JobInfo;
 import org.springframework.data.domain.Page;

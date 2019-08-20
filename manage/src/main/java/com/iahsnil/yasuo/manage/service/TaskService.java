@@ -1,4 +1,4 @@
-package com.iahsnil.yasuo.manage.Service;
+package com.iahsnil.yasuo.manage.service;
 
 /**
  * @Auther: zed

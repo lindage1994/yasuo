@@ -1,7 +1,7 @@
-package com.iahsnil.yasuo.manage.Service.impl;
+package com.iahsnil.yasuo.manage.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.iahsnil.yasuo.manage.Service.NineOneTaskService;
+import com.iahsnil.yasuo.manage.service.NineOneTaskService;
 import org.springframework.stereotype.Service;
 
 /**

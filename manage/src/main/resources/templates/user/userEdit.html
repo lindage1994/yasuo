@@ -4,7 +4,6 @@
     <meta charset="UTF-8"/>
     <title>user</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
-    <link rel="stylesheet" href="../static/css/bootstrap.css">
 </head>
 <body class="container">
 <br/>
@@ -12,7 +11,7 @@
 <br/><br/>
 <div class="with:80%">
     <form class="form-horizontal" th:action="@{/user/edit}" th:object="${user}" method="post">
-        <input type="hidden" name="id" th:value="*{id}"/>
+        <input type="hidden" name="uid" th:value="*{uid}"/>
         <div class="form-group">
             <label for="userName" class="col-sm-2 control-label">userName</label>
             <div class="col-sm-10">
