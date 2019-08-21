@@ -2,54 +2,65 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>userList</title>
+    <title>pornList</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
 </head>
-<body class="container">
+<body>
+<div th:replace="header::header"></div>
 <br/>
-<h1>porn列表</h1>
-<br/><br/>
-<div class="with:80%">
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>name</th>
-            <th>code</th>
-            <th>link</th>
-            <th>play</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr  th:each="porn : ${porns}">
-            <th scope="row" th:text="${porn.id}">1</th>
-            <td th:text="${porn.name}">neo</td>
-            <td th:text="${porn.code}">Otto</td>
-            <td th:text="${porn.link}">Otto</td>
-            <td><a th:href="@{/porn/player(url=${porn.link})}">play</a></td>
-        </tr>
-        </tbody>
-    </table>
+<div class="container">
+    <h1>porn列表</h1>
+    <br/><br/>
+    <div class="with:80%">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>name</th>
+                <th>code</th>
+                <th>link</th>
+                <th>play</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="porn : ${porns}">
+                <th scope="row" th:text="${porn.id}">1</th>
+                <td th:text="${porn.name}">neo</td>
+                <td th:text="${porn.code}">Otto</td>
+                <td th:text="${porn.link}">Otto</td>
+                <td><a th:href="@{/porn/player(url=${porn.link})}">play</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <ul class="pagination pagination-lg">
+        <li th:if="${pageNum ==1}" th:class="disabled"><a href="#">上一页</a></li>
+        <li th:if="${pageNum > 1}"><a th:href="@{/porn/list(pageNum=${pageNum - 1})}">上一页</a></li>
+        <li th:if="${pageNum - 3 >=1}"><a th:href="@{/porn/list(pageNum=${pageNum - 3})}" th:text="${pageNum -3}">1</a>
+        </li>
+        <li th:if="${pageNum - 2 >=1}"><a th:href="@{/porn/list(pageNum=${pageNum - 2})}" th:text="${pageNum -2}">1</a>
+        </li>
+        <li th:if="${pageNum - 1 >=1}"><a th:href="@{/porn/list(pageNum=${pageNum - 1})}" th:text="${pageNum -1}">1</a>
+        </li>
+        <li class="active"><a href="#" th:text="${pageNum}">1</a></li>
+        <li th:if="${pageNum + 1 <=totalPages}"><a th:href="@{/porn/list(pageNum=${pageNum + 1})}"
+                                                   th:text="${pageNum +1}">1</a></li>
+        <li th:if="${pageNum + 2 <=totalPages}"><a th:href="@{/porn/list(pageNum=${pageNum + 2})}"
+                                                   th:text="${pageNum +2}">1</a></li>
+        <li th:if="${pageNum + 3 <=totalPages}"><a th:href="@{/porn/list(pageNum=${pageNum + 3})}"
+                                                   th:text="${pageNum +3}">1</a></li>
+
+        <li th:if="${pageNum == totalPages}" class="disabled"><a href="#">下一页</a></li>
+        <li th:if="${pageNum < totalPages}"><a th:href="@{/porn/list(pageNum=${pageNum + 1})}">下一页</a></li>
+    </ul>
+    <br>
 </div>
-<ul class="pagination pagination-lg" >
-    <li th:if="${pageNum ==1}" th:class="disabled"><a href="#">上一页</a></li>
-    <li th:if="${pageNum > 1}" ><a th:href="@{/porn/list(pageNum=${pageNum - 1})}">上一页</a></li>
-    <li th:if="${pageNum - 3 >=1}" ><a th:href="@{/porn/list(pageNum=${pageNum - 3})}" th:text="${pageNum -3}" >1</a></li>
-    <li th:if="${pageNum - 2 >=1}" ><a th:href="@{/porn/list(pageNum=${pageNum - 2})}" th:text="${pageNum -2}" >1</a></li>
-    <li th:if="${pageNum - 1 >=1}" ><a th:href="@{/porn/list(pageNum=${pageNum - 1})}" th:text="${pageNum -1}" >1</a></li>
-    <li class="active"><a href="#" th:text="${pageNum}" >1</a></li>
-    <li th:if="${pageNum + 1 <=totalPages}" ><a th:href="@{/porn/list(pageNum=${pageNum + 1})}" th:text="${pageNum +1}" >1</a></li>
-    <li th:if="${pageNum + 2 <=totalPages}" ><a th:href="@{/porn/list(pageNum=${pageNum + 2})}" th:text="${pageNum +2}" >1</a></li>
-    <li th:if="${pageNum + 3 <=totalPages}" ><a th:href="@{/porn/list(pageNum=${pageNum + 3})}" th:text="${pageNum +3}" >1</a></li>
-
-    <li th:if="${pageNum == totalPages}" class="disabled" ><a href="#">下一页</a></li>
-    <li th:if="${pageNum < totalPages}"><a th:href="@{/porn/list(pageNum=${pageNum + 1})}">下一页</a></li>
-</ul><br>
 <!--<div class="form-group">-->
-    <!--<div class="col-sm-2 control-label">-->
-        <!--<a href="porn/toAdd" th:href="@{/user/toAdd}" class="btn btn-info">add</a>-->
-    <!--</div>-->
+<!--<div class="col-sm-2 control-label">-->
+<!--<a href="porn/toAdd" th:href="@{/user/toAdd}" class="btn btn-info">add</a>-->
 <!--</div>-->
-
+<!--</div>-->
+<div th:replace="footer::footer"></div>
 </body>
 </html>

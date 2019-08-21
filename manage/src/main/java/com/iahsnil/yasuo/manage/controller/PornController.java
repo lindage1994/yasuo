@@ -29,9 +29,9 @@ public class PornController {
     @RequestMapping({"/","/list"})
     public String list(Model model, @RequestParam(value="pageNum",defaultValue = "1") Integer pageNum) {
         List<Object> list = nineOneRemote.getList();
-        model.addAttribute("porns", list.stream().skip((pageNum - 1) * 20).limit(20).collect(Collectors.toList()));
+        model.addAttribute("porns", list.stream().skip((pageNum - 1) * 10).limit(10).collect(Collectors.toList()));
         model.addAttribute("pageNum",pageNum);
-        model.addAttribute("totalPages",list.size() / 20 + 1);
+        model.addAttribute("totalPages",list.size() / 10 + 1);
         return "porn/list";
     }
 

@@ -2,6 +2,7 @@ package com.iahsnil.yasuo.manage.controller;
 
 import com.iahsnil.yasuo.manage.service.UserService;
 import com.iahsnil.yasuo.manage.entity.UserInfo;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ public class UserController {
     }
 
     @RequestMapping("/list")
+    @PreAuthorize("hasPermission('userInfo/userList', 'userInfo:view')")
     public String list(Model model) {
         List<UserInfo> users = userService.getUserList();
         model.addAttribute("users", users);
