@@ -20,7 +20,7 @@ public class BaseController {
 
     @RequestMapping("/refreshList")
     public Object refreshList(int page){
-        Future<String> future = spiderService.refreshList(page);
+        Future<String> future = spiderService.refreshList();
         Thread listerTread = new Thread(() -> {
             try {
                 log.info("异步调用返回结果:" + future.get());

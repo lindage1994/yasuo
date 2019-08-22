@@ -28,7 +28,7 @@ public class MyPermissionEvaluator implements PermissionEvaluator {
             List<SysPermission> sysPermissions = role.getPermissions();
 
             for (SysPermission permission:sysPermissions) {
-                if (targetUrl.equals(permission.getUrl()) && sysPermissions.contains(targetPermission)) {
+                if (targetUrl.equals(permission.getUrl()) && permission.getPermission().equals(targetPermission)) {
                     return true;
                 }
             }

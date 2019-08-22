@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -19,7 +20,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @Service("spiderService")
@@ -28,6 +28,8 @@ public class SpiderServiceImpl implements SpiderService {
 
     @Autowired
     VedioRepository vedioRepository;
+
+    private static int page = 1;
 
 
     @Override
@@ -60,7 +62,8 @@ public class SpiderServiceImpl implements SpiderService {
 
     @Override
     @Async
-    public Future<String> refreshList(int page) {
+    @Scheduled(cron = "* 0/5 * * * *")
+    public Future<String> refreshList() {
         StringBuilder sb = new StringBuilder();
 
         log.info("getList script process....");
@@ -100,6 +103,7 @@ public class SpiderServiceImpl implements SpiderService {
                 log.error(vedio.getName());
             }
         }
+        page++;
         return new AsyncResult<>("success");
     }
 }

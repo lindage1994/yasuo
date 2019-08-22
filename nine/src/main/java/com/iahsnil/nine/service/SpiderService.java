@@ -9,5 +9,5 @@ public interface SpiderService {
     void startSpider();
     List<VedioInfo> getList();
     void download(int id);
-    Future<String> refreshList(int pageNo);
+    Future<String> refreshList();
 }

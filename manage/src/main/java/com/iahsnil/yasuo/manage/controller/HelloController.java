@@ -53,7 +53,6 @@ public class HelloController {
     }
 
     @RequestMapping("/home")
-    @PostAuthorize("hasPermission()")
     public String home(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name, HttpServletRequest request) {
         model.addAttribute("name", name);
         Object o = request.getSession().getAttribute("springboot");
