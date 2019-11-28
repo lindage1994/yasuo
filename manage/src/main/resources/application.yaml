@@ -30,4 +30,4 @@ server:
 feign:
   hystrix:
     # 在feign中开启hystrix功能
-    enabled: true
+    enabled: false

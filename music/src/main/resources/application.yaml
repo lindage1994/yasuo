@@ -11,21 +11,7 @@ spring:
       ddl-auto: update
     open-in-view: true
   application:
-    name: nine-producer
-  mail:
-    host: smtp.gmail.com
-    username: iahsnil1994@gmail.com
-    password: ok19941030
-    protocol: smtp
-    properties.mail.smtp.auth: true
-    properties.mail.smtp.port: 465
-    properties.mail.display.sendmail: iahsnil
-    properties.mail.display.sendname: Spring Boot Guide Email
-    properties.mail.smtp.starttls.enable: true
-    properties.mail.smtp.starttls.required: true
-    properties.mail.smtp.ssl.enable: true
-    from: iahsnil1994@gmail.com
-    default-encoding: utf-8
+    name: music-producer
   redis:
     lettuce:
       pool:
@@ -37,7 +23,7 @@ spring:
     mongodb:
       uri: mongodb://localhost/tx_data
 server:
-  port: 9191
+  port: 9090
 eureka:
   client:
     service-url:

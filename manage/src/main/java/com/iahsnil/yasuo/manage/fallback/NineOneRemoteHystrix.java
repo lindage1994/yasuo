@@ -1,6 +1,7 @@
 package com.iahsnil.yasuo.manage.fallback;
 
 import com.iahsnil.yasuo.manage.remote.NineOneRemote;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,5 +21,10 @@ public class NineOneRemoteHystrix implements NineOneRemote {
     @Override
     public Object excuteTask(int taskId) {
         return "excute " + taskId + "failed";
+    }
+
+    @Override
+    public ResponseEntity<byte[]> getImage(String words) {
+        return null;
     }
 }

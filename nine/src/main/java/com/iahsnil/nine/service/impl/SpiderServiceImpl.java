@@ -3,12 +3,16 @@ package com.iahsnil.nine.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.iahsnil.nine.entity.Vedio;
 import com.iahsnil.nine.entity.VedioInfo;
 import com.iahsnil.nine.repository.VedioRepository;
 import com.iahsnil.nine.service.SpiderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -28,8 +32,10 @@ public class SpiderServiceImpl implements SpiderService {
 
     @Autowired
     VedioRepository vedioRepository;
+    @Autowired
+    MongoTemplate mongoTemplate;
 
-    private static int page = 1;
+    private static int page = 2;
 
 
     @Override
@@ -52,6 +58,8 @@ public class SpiderServiceImpl implements SpiderService {
 
     @Override
     public List<VedioInfo> getList() {
+        Query query = Query.query(Criteria.where("name").regex("大学生")).skip(0).limit(10);
+        mongoTemplate.find(query,Vedio.class);
         return vedioRepository.findAll();
     }
 
@@ -62,7 +70,7 @@ public class SpiderServiceImpl implements SpiderService {
 
     @Override
     @Async
-    @Scheduled(cron = "* 0/5 * * * *")
+    @Scheduled(cron = "0 0 12 * * ?")
     public Future<String> refreshList() {
         StringBuilder sb = new StringBuilder();
 

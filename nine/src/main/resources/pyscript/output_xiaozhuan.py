@@ -1,4 +1,4 @@
-
+import sys
 from PIL import Image, ImageDraw, ImageFont
 '''
     Auth: Xiaowu Chen
@@ -31,7 +31,7 @@ def draw_image(new_img, text, show_image=False):
 def new_image(width, height, text='default', color=(255, 255, 255, 255), show_image=False):
     new_img = Image.new('RGBA', (int(width), int(height)), color)
     draw_image(new_img, text, show_image)
-    new_img.save(r'%s_%s_%s.png' % (width, height, text))
+    new_img.save(r'E://images/%s.png' %  text)
     del new_img
  
  
@@ -48,5 +48,6 @@ def new_image_with_file(fn):
  
  
 if '__main__' == __name__:
-    new_image(400, 300, '方桦', show_image=True)
+    name = sys.argv[1]
+    new_image(400, 300, name, show_image=False)
     # new_image_with_file('image_data.txt')

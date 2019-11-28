@@ -2,6 +2,7 @@ package com.iahsnil.yasuo.manage.remote;
 
 import com.iahsnil.yasuo.manage.fallback.NineOneRemoteHystrix;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,6 +17,9 @@ public interface NineOneRemote {
     @RequestMapping(value = "/refreshList")
     Object refreshList(@RequestParam int page);
 
-    @RequestMapping(value = "excuteTask")
+    @RequestMapping(value = "/excuteTask")
     Object excuteTask(@RequestParam int taskId);
+
+    @RequestMapping(value = "/getImage")
+    ResponseEntity<byte[]> getImage(@RequestParam String words);
 }

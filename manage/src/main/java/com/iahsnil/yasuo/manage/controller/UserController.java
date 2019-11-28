@@ -61,8 +61,8 @@ public class UserController {
 
 
     @RequestMapping("/delete")
-    public String delete(int id) {
-        userService.deleteById(id);
+    public String delete(int uid) {
+        userService.deleteById(uid);
         return "redirect:/user/list";
     }
 }

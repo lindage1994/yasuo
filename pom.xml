@@ -31,6 +31,8 @@
         <module>config</module>
         <module>config-client</module>
         <module>gateway</module>
+        <module>music</module>
+        <module>xxx</module>
     </modules>
 
     <dependencyManagement>
