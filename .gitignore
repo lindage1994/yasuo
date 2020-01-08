@@ -37,3 +37,5 @@ zuul/mvnw.cmd
 config/config.iml
 /gateway/gateway.iml
 /gateway/target/
+src/main/resources/static/
+src/main/resources/templates/
