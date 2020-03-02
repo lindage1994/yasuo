@@ -33,6 +33,8 @@
         <module>gateway</module>
         <module>music</module>
         <module>xxx</module>
+        <module>mq</module>
+        <module>consumer</module>
     </modules>
 
     <dependencyManagement>
